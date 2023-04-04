@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 import * as mongoose from 'mongoose';
 
 @Module({
@@ -12,6 +13,7 @@ import * as mongoose from 'mongoose';
     ConfigModule.forRoot(), //글로벌 사용시 인자로 {isGlobal: true}
     UsersModule,
     MongooseModule.forRoot(process.env.MONGODB_URI),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
