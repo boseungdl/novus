@@ -10,11 +10,12 @@ import { UsersModule } from 'src/users/users.module';
   imports: [
     //strategy설정
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
-    //로그인할 떄 쓰임
+    //전략 설정가능 -> 인증 시스템만듬 : 로그인할 떄 쓰임
     JwtModule.register({
       secret: 'secret',
       signOptions: { expiresIn: '1y' },
     }),
+    //jwt를 만들어주는 모듈
     forwardRef(() => UsersModule),
   ],
   providers: [AuthService, JwtStrategy],

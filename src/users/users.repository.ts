@@ -28,4 +28,10 @@ export class UsersRepository {
     const cat = await this.userModel.findOne({ email });
     return cat;
   }
+
+  async findUserByIdWithoutPassword(userId: string): Promise<User | null> {
+    const user = await this.userModel.findById(userId).select('-password');
+    //패스워드 필드 빼고 가져옴
+    return user;
+  }
 }
