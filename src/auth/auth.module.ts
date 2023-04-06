@@ -5,9 +5,11 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersRepository } from 'src/users/users.repository';
 import { UsersModule } from 'src/users/users.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     //strategy설정
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     //전략 설정가능 -> 인증 시스템만듬 : 로그인할 떄 쓰임

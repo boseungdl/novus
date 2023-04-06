@@ -21,6 +21,7 @@ import * as mongoose from 'mongoose';
 export class AppModule implements NestModule {
   private readonly isDev: boolean = process.env.MODE === 'dev' ? true : false;
   configure(consumer: MiddlewareConsumer) {
+    console.log('middleware');
     consumer.apply(LoggerMiddleware).forRoutes('*');
     mongoose.set('debug', this.isDev);
     //consumer(소비자)에게 로거미들웨어(provider)가 미들웨어(제품)를 제공해준다.

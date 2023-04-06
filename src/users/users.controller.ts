@@ -7,6 +7,7 @@ import {
   UseInterceptors,
   UseGuards,
   Req,
+  HttpException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserRequestDto } from './dto/users.request.dto';
@@ -18,6 +19,8 @@ import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { Request } from 'express';
+import { CurrentUser } from 'src/common/decorators/user.decorators';
+import { User } from './users.schema';
 
 @Controller('users')
 @UseFilters(HttpExceptionFilter)
@@ -51,8 +54,9 @@ export class UsersController {
   }
   @ApiOperation({ summary: '현재 유저 가져오기' })
   @UseGuards(JwtAuthGuard) //guard주입 -> strategy의 validate실행
-  @Get()
-  getCurrentUser(@Req() req: Request) {
-    return 'user';
+  @Get('/relogin')
+  getCurrentUser(@CurrentUser() user: User) {
+    console.log('users');
+    return user.readOnlyData;
   }
 }

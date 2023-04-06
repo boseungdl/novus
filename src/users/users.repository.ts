@@ -31,7 +31,7 @@ export class UsersRepository {
 
   async findUserByIdWithoutPassword(userId: string): Promise<User | null> {
     const user = await this.userModel.findById(userId).select('-password');
-    //패스워드 필드 빼고 가져옴
+    //패스워드 필드 빼고 가져옴 / 가져오고 싶은 것만 선택 시에는 ('name email')
     return user;
   }
 }
